@@ -30,6 +30,9 @@
     "@nestjs/platform-express": "^10.3.9",
     "@nestjs/platform-fastify": "^10.3.9",
     "@prisma/client": "^5.15.1",
+    "dotenv": "^16.4.5",
+    "fastify": "^4.28.0",
+    "firebase-admin": "^12.1.1",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1"
   },
