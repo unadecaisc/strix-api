@@ -11,4 +11,175 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum WorkHoursStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum PeriodStatus {
+  PENDING
+  ACTIVE
+  FINISHED
+  CLOSED
+}
+
+enum RequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+
+
+}
+
+
+model GlobalSetting {
+  id        Int      @id @default(autoincrement())
+  key       String
+  value     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model MailingList {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Period {
+  id        Int          @id @default(autoincrement())
+  name      String
+  start     DateTime
+  end       DateTime
+  status    PeriodStatus @default(PENDING)
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+  workHours WorkHours[]
+  scholarshipPayroll ScholarshipPayroll[]
+}
+
+model Role {
+  id                 Int      @id @default(autoincrement())
+  name               String
+  allowedPermissions String[]
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+  users              User[]
+}
+
+model Pricing {
+  id          Int          @id @default(autoincrement())
+  price       Float
+  active      Boolean      @default(true)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  departments Department[]
+}
+
+model Department {
+  id           Int                   @id @default(autoincrement())
+  name         String
+  code         String
+  pricingId    Int
+  createdAt    DateTime              @default(now())
+  updatedAt    DateTime              @updatedAt
+  pricing      Pricing               @relation(fields: [pricingId], references: [id])
+  users        User[]
+  students     StudentOnDepartment[]
+  hours        WorkHours[]
+  scholarshipPayroll ScholarshipPayroll[]
+}
+
+model User {
+  id           Int            @id @default(autoincrement())
+  name         String
+  email        String
+  phone        String
+  firebaseId   String
+  roleId       Int
+  departmentId Int?
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  role         Role           @relation(fields: [roleId], references: [id])
+  department   Department?    @relation(fields: [departmentId], references: [id])
+  workHours    WorkHours[]
+  scholarshipPayroll ScholarshipPayroll[]
+}
+
+model StudentOnDepartment {
+  id           Int        @id @default(autoincrement())
+  studentId    Int
+  departmentId Int
+  status       RequestStatus @default(PENDING)
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  student      Student    @relation(fields: [studentId], references: [id])
+  department   Department @relation(fields: [departmentId], references: [id])
+}
+
+
+
+model Student {
+  id           Int                   @id @default(autoincrement())
+  name         String
+  email        String
+  phone        String
+  code         String
+  createdAt    DateTime              @default(now())
+  updatedAt    DateTime              @updatedAt
+  departments  StudentOnDepartment[]
+  workHours    WorkHours[]
+  ScholarshipPayroll ScholarshipPayroll[]
+}
+
+model WorkHours {
+  id            Int             @id @default(autoincrement())
+  name          String
+  start         DateTime
+  end           DateTime
+  amount        Float
+  price         Float
+  total         Float
+  status        WorkHoursStatus @default(PENDING)
+  registedBy    Int
+  studentId     Int
+  departmentId  Int
+  appliedHourId Int?
+  periodId      Int
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  period        Period          @relation(fields: [periodId], references: [id])
+  applier       User            @relation(fields: [registedBy], references: [id])
+  student       Student         @relation(fields: [studentId], references: [id])
+  department    Department      @relation(fields: [departmentId], references: [id])
+  becaPayroll  ScholarshipPayroll?   @relation(fields: [appliedHourId], references: [id])
+}
+
+model ScholarshipPayroll {
+  id           Int         @id @default(autoincrement())
+  hours        Float
+  amount       Float
+  subtotal     Float
+  tithe        Float
+  total        Float
+  payable      Float
+  recivable    Float
+  studentId    Int
+  departmentId Int
+  periodId Int
+  appliedBy    Int
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  period        Period          @relation(fields: [periodId], references: [id])
+  applier      User        @relation(fields: [appliedBy], references: [id])
+  student      Student     @relation(fields: [studentId], references: [id])
+  department   Department  @relation(fields: [departmentId], references: [id])
+  workHours    WorkHours[]
 }
