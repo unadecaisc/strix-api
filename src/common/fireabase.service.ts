@@ -4,11 +4,10 @@ import * as admin from 'firebase-admin';
 export type FirebaseUser = {
   email: string;
   password: string;
-  displayName: string;
 };
 
 @Injectable()
-export class FireabaseService {
+export class FirebaseService {
   validateToken(token: string) {
     return admin.auth().verifyIdToken(token);
   }

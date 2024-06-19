@@ -7,6 +7,7 @@ import {
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
 import { getCredentialsFromEnv } from './utils';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 config();
 
@@ -17,6 +18,13 @@ async function bootstrap() {
       logger: true,
     }),
   );
+  const config = new DocumentBuilder()
+    .setTitle('Strix API')
+    .setDescription('Api for Strix application')
+    .setVersion('1.0')
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('doc', app, document);
 
   firebaseAdmin.initializeApp({
     credential: firebaseAdmin.credential.cert(getCredentialsFromEnv()),

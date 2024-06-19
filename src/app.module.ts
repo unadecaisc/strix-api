@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UserModule } from './user/user.module';
-import { FireabaseService } from './fireabase/fireabase.service';
+import { UsersModule } from './users/users.module';
+import { CommonModule } from './common/common.module';
 
 @Module({
-  imports: [UserModule],
+  imports: [CommonModule, UsersModule],
   controllers: [AppController],
-  providers: [AppService, FireabaseService],
+  providers: [AppService],
 })
 export class AppModule {}
