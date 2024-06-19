@@ -25,10 +25,13 @@
     "prisma:migrate:reset": "prisma migrate reset --force"
   },
   "dependencies": {
+    "@fastify/static": "^7.0.4",
     "@nestjs/common": "^10.3.9",
     "@nestjs/core": "^10.0.0",
+    "@nestjs/mapped-types": "*",
     "@nestjs/platform-express": "^10.3.9",
     "@nestjs/platform-fastify": "^10.3.9",
+    "@nestjs/swagger": "^7.3.1",
     "@prisma/client": "^5.15.1",
     "dotenv": "^16.4.5",
     "fastify": "^4.28.0",

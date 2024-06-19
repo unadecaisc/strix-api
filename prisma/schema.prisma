@@ -102,7 +102,7 @@ model User {
   name         String
   email        String
   phone        String
-  firebaseId   String
+  uuid   String @unique
   roleId       Int
   departmentId Int?
   createdAt    DateTime       @default(now())
