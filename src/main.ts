@@ -8,6 +8,7 @@ import {
 } from '@nestjs/platform-fastify';
 import { getCredentialsFromEnv } from './utils';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { ValidationPipe } from '@nestjs/common';
 
 config();
 
@@ -29,6 +30,8 @@ async function bootstrap() {
   firebaseAdmin.initializeApp({
     credential: firebaseAdmin.credential.cert(getCredentialsFromEnv()),
   });
+
+  app.useGlobalPipes(new ValidationPipe());
 
   app.enableCors();
 
