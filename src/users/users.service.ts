@@ -5,6 +5,12 @@ import { FirebaseService } from '../common/fireabase.service';
 import { UserRecord } from 'firebase-admin/lib/auth/user-record';
 import { Prisma, User } from '@prisma/client';
 import { UpdateUserDto } from './dto/update-user.dto';
+import {
+  createPaginatedResponse,
+  createPaginationMetadata,
+  PaginatedResponse,
+} from '../utils/pagination.util';
+import { GetUsersDto } from './dto/get-users.dto';
 
 const DEFAULT_ROLE = 2;
 
@@ -68,13 +74,25 @@ export class UsersService {
     return user;
   }
 
-  findAll() {
-    return this.prismaService.user.findMany({
+  async findAll(query: GetUsersDto): Promise<PaginatedResponse<User>> {
+    const { page = 1, size = 10 } = query;
+
+    const { take, skip } = createPaginationMetadata(page, size);
+
+    const prismaQuery = {
+      take,
+      skip,
       include: {
         role: true,
         department: true,
       },
-    });
+    };
+    const [users, total] = await Promise.all([
+      this.prismaService.user.findMany(prismaQuery),
+      this.prismaService.user.count(),
+    ]);
+
+    return createPaginatedResponse<User>(users, total, page, size);
   }
 
   private async exists(email: string): Promise<boolean> {
