@@ -13,9 +13,6 @@ import {
 
 @Injectable()
 export class RolesService {
-  create(createRoleDto: CreateRoleDto) {
-    throw new Error('Method not implemented.');
-  }
   constructor(private readonly prismaService: PrismaService) {}
 
   async createRole(data: CreateRoleDto): Promise<Role> {
@@ -50,7 +47,6 @@ export class RolesService {
       where: {
         id,
       },
-      include: {},
     });
   }
 
