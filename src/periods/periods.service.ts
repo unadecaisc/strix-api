@@ -4,11 +4,8 @@ import { UpdatePeriodDto } from './dto/update-Period.dto';
 import { Period, PrismaClient } from '@prisma/client';
 import { GetPeriodDto } from './dto/get-Period.dto';
 import { PrismaService } from 'src/common/prisma.service';
-import {
-  PaginatedResponse,
-  createPaginatedResponse,
-  createPaginationMetadata,
-} from 'src/utils/pagination.util';
+import {PaginatedResponse,createPaginatedResponse,createPaginationMetadata,}
+ from 'src/utils/pagination.util';
 
 @Injectable()
 export class PeriodsService {
@@ -24,8 +21,7 @@ export class PeriodsService {
         },
       });
     } catch (error) {
-      throw new InternalServerErrorException('Could not be created');
-    }
+      throw new InternalServerErrorException("Could not be created");}
   }
 
   async findAll(query: GetPeriodDto): Promise<PaginatedResponse<Period>> {
@@ -36,11 +32,11 @@ export class PeriodsService {
       skip,
       include: {},
     };
-    const [Period, total] = await Promise.all([
+    const [period, total] = await Promise.all([
       this.prismaService.period.findMany(prismaQuery),
       this.prismaService.period.count(),
     ]);
-    return createPaginatedResponse<Period>(Period, total, page, size);
+    return createPaginatedResponse<Period>(period, total, page, size);
   }
 
   findOne(id: number) {
