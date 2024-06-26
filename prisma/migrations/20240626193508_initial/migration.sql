@@ -83,7 +83,7 @@ CREATE TABLE "User" (
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "phone" TEXT NOT NULL,
-    "firebaseId" TEXT NOT NULL,
+    "uuid" TEXT NOT NULL,
     "roleId" INTEGER NOT NULL,
     "departmentId" INTEGER,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -157,6 +157,9 @@ CREATE TABLE "ScholarshipPayroll" (
 
     CONSTRAINT "ScholarshipPayroll_pkey" PRIMARY KEY ("id")
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_uuid_key" ON "User"("uuid");
 
 -- AddForeignKey
 ALTER TABLE "Department" ADD CONSTRAINT "Department_pricingId_fkey" FOREIGN KEY ("pricingId") REFERENCES "Pricing"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
