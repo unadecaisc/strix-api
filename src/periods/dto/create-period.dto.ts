@@ -8,15 +8,13 @@ export class CreatePeriodDto {
   @ApiProperty()
   end: Date;
 //   @ApiProperty()
-//   status: ;  
-//   @ApiProperty()
-
-// ]  @ApiProperty()
 
 //   @ApiProperty()
 
 // ]  @ApiProperty()
 
+//   @ApiProperty()
 
+// ]  @ApiProperty()
 
 }

@@ -4,11 +4,8 @@ import { UpdatePeriodDto } from './dto/update-Period.dto';
 import { Period, PrismaClient } from '@prisma/client';
 import { GetPeriodDto } from './dto/get-Period.dto';
 import { PrismaService } from 'src/common/prisma.service';
-import {
-  PaginatedResponse,
-  createPaginatedResponse,
-  createPaginationMetadata,
-} from 'src/utils/pagination.util';
+import {PaginatedResponse,createPaginatedResponse,createPaginationMetadata,}
+ from 'src/utils/pagination.util';
 
 @Injectable()
 export class PeriodsService {
