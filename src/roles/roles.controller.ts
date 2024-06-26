@@ -11,7 +11,7 @@ export class RolesController {
 
   @Post()
   async createRole(@Body() data: Role){
-    this.rolesService.createRole(data)
+   return this.rolesService.createRole(data)
   }
   
 
