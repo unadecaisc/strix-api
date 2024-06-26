@@ -4,14 +4,14 @@ import { UpdatePeriodDto } from './dto/update-Period.dto';
 import { Period, PrismaClient } from '@prisma/client';
 import { GetPeriodDto } from './dto/get-Period.dto';
 import { PrismaService } from 'src/common/prisma.service';
-import {PaginatedResponse,createPaginatedResponse,createPaginationMetadata,}
- from 'src/utils/pagination.util';
+import {
+  PaginatedResponse,
+  createPaginatedResponse,
+  createPaginationMetadata,
+} from 'src/utils/pagination.util';
 
 @Injectable()
 export class PeriodsService {
-  create(body: CreatePeriodDto): { id: number; name: string; start: Date; end: Date; status: import(".prisma/client").$Enums.PeriodStatus; createdAt: Date; updatedAt: Date; } | PromiseLike<{ id: number; name: string; start: Date; end: Date; status: import(".prisma/client").$Enums.PeriodStatus; createdAt: Date; updatedAt: Date; }> {
-    throw new Error('Method not implemented.');
-  }
   constructor(private readonly prismaService: PrismaService) {}
 
   async createPeriod(data: CreatePeriodDto): Promise<Period> {
@@ -24,7 +24,8 @@ export class PeriodsService {
         },
       });
     } catch (error) {
-      throw new InternalServerErrorException("Could not be created");}
+      throw new InternalServerErrorException('Could not be created');
+    }
   }
 
   async findAll(query: GetPeriodDto): Promise<PaginatedResponse<Period>> {
