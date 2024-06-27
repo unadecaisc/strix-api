@@ -3,12 +3,12 @@ import { CreatePeriodDto } from './dto/create-period.dto';
 import { UpdatePeriodDto } from './dto/update-Period.dto';
 import { Period } from '@prisma/client';
 import { GetPeriodDto } from './dto/get-Period.dto';
-import { PrismaService } from 'src/common/prisma.service';
+import { PrismaService } from '../common/prisma.service';
 import {
   PaginatedResponse,
   createPaginatedResponse,
   createPaginationMetadata,
-} from 'src/utils/pagination.util';
+} from '../utils/pagination.util';
 
 @Injectable()
 export class PeriodsService {

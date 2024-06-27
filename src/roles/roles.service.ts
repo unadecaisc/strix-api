@@ -3,12 +3,12 @@ import { CreateRoleDto } from './dto/create-role.dto';
 import { UpdateRoleDto } from './dto/update-role.dto';
 import { Role } from '@prisma/client';
 import { GetRoleDto } from './dto/get-role.dto';
-import { PrismaService } from 'src/common/prisma.service';
+import { PrismaService } from '../common/prisma.service';
 import {
   PaginatedResponse,
   createPaginatedResponse,
   createPaginationMetadata,
-} from 'src/utils/pagination.util';
+} from '../utils/pagination.util';
 
 @Injectable()
 export class RolesService {
