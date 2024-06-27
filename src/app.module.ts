@@ -5,9 +5,10 @@ import { UsersModule } from './users/users.module';
 import { CommonModule } from './common/common.module';
 import { RolesModule } from './roles/roles.module';
 import { PeriodsModule } from './periods/periods.module';
+import { MailingListModule } from './mailing-list/mailing-list.module';
 
 @Module({
-  imports: [CommonModule, UsersModule,RolesModule, PeriodsModule],
+  imports: [CommonModule, UsersModule,RolesModule, PeriodsModule, MailingListModule],
   controllers: [AppController],
   providers: [AppService],
 })
