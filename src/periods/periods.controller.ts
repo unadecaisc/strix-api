@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Param, Query, Put } from '@nestjs/common';
 import { PeriodsService } from './periods.service';
 import { CreatePeriodDto } from './dto/create-period.dto';
 import { UpdatePeriodDto } from './dto/update-period.dto';
-import { GetPeriodDto } from './dto/get-Period.dto';
+import { GetPeriodDto } from './dto/get-period.dto';
 import { Period } from '@prisma/client';
 import { PaginatedResponse } from '../utils/pagination.util';
 
