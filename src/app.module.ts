@@ -7,7 +7,7 @@ import { RolesModule } from './roles/roles.module';
 import { PeriodsModule } from './periods/periods.module';
 
 @Module({
-  imports: [CommonModule, UsersModule,RolesModule, PeriodsModule],
+  imports: [CommonModule, UsersModule, RolesModule, PeriodsModule],
   controllers: [AppController],
   providers: [AppService],
 })

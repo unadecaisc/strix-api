@@ -1,10 +1,9 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { CreateRoleDto } from './dto/create-role.dto';
 import { UpdateRoleDto } from './dto/update-role.dto';
-import { PrismaClient, Role } from '@prisma/client';
+import { Role } from '@prisma/client';
 import { GetRoleDto } from './dto/get-role.dto';
 import { PrismaService } from 'src/common/prisma.service';
-import { GetUsersDto } from 'src/users/dto/get-users.dto';
 import {
   PaginatedResponse,
   createPaginatedResponse,
@@ -24,7 +23,8 @@ export class RolesService {
         },
       });
     } catch (error) {
-      throw new InternalServerErrorException("Could not be created");}
+      throw new InternalServerErrorException('Could not be created');
+    }
   }
 
   async findAll(query: GetRoleDto): Promise<PaginatedResponse<Role>> {
