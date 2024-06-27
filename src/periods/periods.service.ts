@@ -1,6 +1,6 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { CreatePeriodDto } from './dto/create-period.dto';
-import { UpdatePeriodDto } from './dto/update-Period.dto';
+import { UpdatePeriodDto } from './dto/update-period.dto';
 import { Period } from '@prisma/client';
 import { GetPeriodDto } from './dto/get-Period.dto';
 import { PrismaService } from '../common/prisma.service';
