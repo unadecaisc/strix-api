@@ -4,7 +4,7 @@ import { GlobalConfigsController } from './global-configs.controller';
 import { CommonModule } from 'src/common/common.module';
 
 @Module({
-  imports:[CommonModule],
+  imports: [CommonModule],
   controllers: [GlobalConfigsController],
   providers: [GlobalConfigsService],
 })

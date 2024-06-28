@@ -3,7 +3,7 @@ import { RolesService } from './roles.service';
 import { UpdateRoleDto } from './dto/update-role.dto';
 import { GetRoleDto } from './dto/get-role.dto';
 import { Role } from '@prisma/client';
-import { PaginatedResponse } from '../utils/pagination.util';
+import { PaginatedResponse } from 'src/utils/pagination.util';
 
 @Controller('roles')
 export class RolesController {
