@@ -8,7 +8,13 @@ import { PeriodsModule } from './periods/periods.module';
 import { MailingListModule } from './mailing-list/mailing-list.module';
 
 @Module({
-  imports: [CommonModule, UsersModule,RolesModule, PeriodsModule, MailingListModule],
+  imports: [
+    CommonModule,
+    UsersModule,
+    RolesModule,
+    PeriodsModule,
+    MailingListModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query, Put } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Query,
+  Put,
+} from '@nestjs/common';
 import { RolesService } from './roles.service';
 import { UpdateRoleDto } from './dto/update-role.dto';
 import { GetRoleDto } from './dto/get-role.dto';
@@ -10,16 +20,14 @@ export class RolesController {
   constructor(private readonly rolesService: RolesService) {}
 
   @Post()
-  async createRole(@Body() data: Role){
-   return this.rolesService.createRole(data)
+  async createRole(@Body() data: Role) {
+    return this.rolesService.createRole(data);
   }
-  
 
   @Get()
   async findAll(@Query() query: GetRoleDto): Promise<PaginatedResponse<Role>> {
     return this.rolesService.findAll(query);
   }
-  
 
   @Get(':id')
   findOne(@Param('id') id: string) {
@@ -30,6 +38,4 @@ export class RolesController {
   update(@Param('id') id: string, @Body() updateRoleDto: UpdateRoleDto) {
     return this.rolesService.updaterole(Number(id), updateRoleDto);
   }
-
-
 }

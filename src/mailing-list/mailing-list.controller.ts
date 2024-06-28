@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Param, Delete, Put, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Put,
+  Query,
+} from '@nestjs/common';
 import { MailingListService } from './mailing-list.service';
 import { GetMailingListDto } from './dto/get-mailing-list.dto';
 import { CreateMailingListDto } from './dto/create-mailing-list.dto';
@@ -16,7 +25,9 @@ export class MailingListController {
   }
 
   @Get()
-  async findAll(@Query() query: GetMailingListDto): Promise<PaginatedResponse<MailingList>> {
+  async findAll(
+    @Query() query: GetMailingListDto,
+  ): Promise<PaginatedResponse<MailingList>> {
     return this.mailingListService.findAll(query);
   }
 
@@ -26,8 +37,10 @@ export class MailingListController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateMailingListDto: UpdateMailingListDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateMailingListDto: UpdateMailingListDto,
+  ) {
     return this.mailingListService.updateMailingList(+id, updateMailingListDto);
   }
-
 }

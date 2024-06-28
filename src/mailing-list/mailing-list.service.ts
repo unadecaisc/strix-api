@@ -4,7 +4,11 @@ import { GetMailingListDto } from './dto/get-mailing-list.dto';
 import { UpdateMailingListDto } from './dto/update-mailing-list.dto';
 import { PrismaService } from 'src/common/prisma.service';
 import { MailingList } from '@prisma/client';
-import { PaginatedResponse, createPaginatedResponse, createPaginationMetadata } from 'src/utils/pagination.util';
+import {
+  PaginatedResponse,
+  createPaginatedResponse,
+  createPaginationMetadata,
+} from 'src/utils/pagination.util';
 
 @Injectable()
 export class MailingListService {
@@ -16,14 +20,17 @@ export class MailingListService {
         data: {
           name: data.name,
           email: data.email,
-        active: data.active,
+          active: data.active,
         },
       });
     } catch (error) {
-      throw new InternalServerErrorException("Could not be created");}
+      throw new InternalServerErrorException('Could not be created');
+    }
   }
 
-  async findAll(query: GetMailingListDto): Promise<PaginatedResponse<MailingList>> {
+  async findAll(
+    query: GetMailingListDto,
+  ): Promise<PaginatedResponse<MailingList>> {
     const { page = 1, size = 10 } = query;
     const { take, skip } = createPaginationMetadata(page, size);
     const prismaQuery = {
@@ -45,7 +52,10 @@ export class MailingListService {
     });
   }
 
-  updateMailingList(id: number, data: UpdateMailingListDto): Promise<MailingList> {
+  updateMailingList(
+    id: number,
+    data: UpdateMailingListDto,
+  ): Promise<MailingList> {
     return this.prismaService.mailingList.update({
       where: {
         id,
@@ -53,7 +63,8 @@ export class MailingListService {
       data: {
         name: data.name,
         email: data.email,
-        active: data.active,},
+        active: data.active,
+      },
     });
   }
 }

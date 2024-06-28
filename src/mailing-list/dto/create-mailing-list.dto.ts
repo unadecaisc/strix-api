@@ -1,11 +1,10 @@
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateMailingListDto {
-
-    @ApiProperty()
-    name: string;
-    @ApiProperty()
-    email: string;
-    @ApiProperty()
-    active: boolean;
+  @ApiProperty()
+  name: string;
+  @ApiProperty()
+  email: string;
+  @ApiProperty()
+  active: boolean;
 }

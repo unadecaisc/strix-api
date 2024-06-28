@@ -24,7 +24,8 @@ export class RolesService {
         },
       });
     } catch (error) {
-      throw new InternalServerErrorException("Could not be created");}
+      throw new InternalServerErrorException('Could not be created');
+    }
   }
 
   async findAll(query: GetRoleDto): Promise<PaginatedResponse<Role>> {
