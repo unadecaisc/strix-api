@@ -14,7 +14,9 @@ import { CreateMailingListDto } from './dto/create-mailing-list.dto';
 import { UpdateMailingListDto } from './dto/update-mailing-list.dto';
 import { PaginatedResponse } from 'src/utils/pagination.util';
 import { MailingList } from '@prisma/client';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Mailing List')
 @Controller('mailing-list')
 export class MailingListController {
   constructor(private readonly mailingListService: MailingListService) {}
@@ -41,6 +43,6 @@ export class MailingListController {
     @Param('id') id: string,
     @Body() updateMailingListDto: UpdateMailingListDto,
   ) {
-    return this.mailingListService.updateMailingList(+id, updateMailingListDto);
+    return this.mailingListService.updateMailingList(Number(id), updateMailingListDto);
   }
 }
