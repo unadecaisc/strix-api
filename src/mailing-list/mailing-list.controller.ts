@@ -1,18 +1,9 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Param,
-  Delete,
-  Put,
-  Query,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Put, Query } from '@nestjs/common';
 import { MailingListService } from './mailing-list.service';
 import { GetMailingListDto } from './dto/get-mailing-list.dto';
 import { CreateMailingListDto } from './dto/create-mailing-list.dto';
 import { UpdateMailingListDto } from './dto/update-mailing-list.dto';
-import { PaginatedResponse } from 'src/utils/pagination.util';
+import { PaginatedResponse } from '../utils/pagination.util';
 import { MailingList } from '@prisma/client';
 import { ApiTags } from '@nestjs/swagger';
 
@@ -43,6 +34,9 @@ export class MailingListController {
     @Param('id') id: string,
     @Body() updateMailingListDto: UpdateMailingListDto,
   ) {
-    return this.mailingListService.updateMailingList(Number(id), updateMailingListDto);
+    return this.mailingListService.updateMailingList(
+      Number(id),
+      updateMailingListDto,
+    );
   }
 }
