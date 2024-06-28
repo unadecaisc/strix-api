@@ -3,15 +3,18 @@ import { RolesService } from './roles.service';
 import { UpdateRoleDto } from './dto/update-role.dto';
 import { GetRoleDto } from './dto/get-role.dto';
 import { Role } from '@prisma/client';
-import { PaginatedResponse } from 'src/utils/pagination.util';
+import { PaginatedResponse } from '../utils/pagination.util';
+import { CreateRoleDto } from './dto/create-role.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Roles')
 @Controller('roles')
 export class RolesController {
   constructor(private readonly rolesService: RolesService) {}
 
   @Post()
-  async createRole(@Body() data: Role) {
-    return this.rolesService.createRole(data);
+  async create(@Body() body: CreateRoleDto): Promise<Role> {
+    return this.rolesService.createRole(body);
   }
 
   @Get()
