@@ -2,13 +2,13 @@ import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { CreateMailingListDto } from './dto/create-mailing-list.dto';
 import { GetMailingListDto } from './dto/get-mailing-list.dto';
 import { UpdateMailingListDto } from './dto/update-mailing-list.dto';
-import { PrismaService } from 'src/common/prisma.service';
+import { PrismaService } from '../common/prisma.service';
 import { MailingList } from '@prisma/client';
 import {
   PaginatedResponse,
   createPaginatedResponse,
   createPaginationMetadata,
-} from 'src/utils/pagination.util';
+} from '../utils/pagination.util';
 
 @Injectable()
 export class MailingListService {
