@@ -7,6 +7,7 @@ import { PaginatedResponse } from '../utils/pagination.util';
 import { CreateRoleDto } from './dto/create-role.dto';
 import { ApiTags } from '@nestjs/swagger';
 
+
 @ApiTags('Roles')
 @Controller('roles')
 export class RolesController {
