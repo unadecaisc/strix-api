@@ -7,6 +7,8 @@ import { RolesModule } from './roles/roles.module';
 import { PeriodsModule } from './periods/periods.module';
 import { MailingListModule } from './mailing-list/mailing-list.module';
 import { GlobalConfigsModule } from './global-configs/global-configs.module';
+import { PriceModule } from './price/price.module';
+
 
 @Module({
   imports: [
@@ -16,6 +18,7 @@ import { GlobalConfigsModule } from './global-configs/global-configs.module';
     PeriodsModule,
     GlobalConfigsModule,
     MailingListModule,
+    PriceModule,
   ],
   controllers: [AppController],
   providers: [AppService],
