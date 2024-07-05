@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { DepartamentsService } from './departaments.service';
 import { DepartamentsController } from './departaments.controller';
-import { CommonModule } from 'src/common/common.module';
+import { CommonModule } from '../common/common.module';
 
 @Module({
   imports: [CommonModule],

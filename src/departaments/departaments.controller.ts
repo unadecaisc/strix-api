@@ -4,7 +4,7 @@ import { CreateDepartamentDto } from './dto/create-departament.dto';
 import { UpdateDepartamentDto } from './dto/update-departament.dto';
 import { GetDepartamentDto } from './dto/get-departament.dto';
 import { Department } from '@prisma/client';
-import { PaginatedResponse } from 'src/utils/pagination.util';
+import { PaginatedResponse } from '../utils/pagination.util';
 
 @Controller('departaments')
 export class DepartamentsController {
@@ -23,8 +23,8 @@ export class DepartamentsController {
   }
 
   @Post()
-  async create(@Body() body: CreateDepartamentDto): Promise<Department> {
-    return this.departamentsService.createDepartamet(body);
+  async createDepartament(@Body() data: CreateDepartamentDto) {
+    return this.departamentsService.createDepartamet(data);
   }
 
   @Put(':id')

@@ -1,3 +1,3 @@
-import { PaginationQueryDto } from 'src/utils/pagination.util';
+import { PaginationQueryDto } from '../../utils/pagination.util';
 
 export class GetDepartamentDto extends PaginationQueryDto {}

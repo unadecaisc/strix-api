@@ -6,5 +6,5 @@ export class CreateDepartamentDto {
   @ApiProperty()
   code: string;
   @ApiProperty()
-  pricing: number;
+  pricingId: number;
 }
