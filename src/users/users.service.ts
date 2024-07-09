@@ -74,47 +74,45 @@ export class UsersService {
     return user;
   }
 
+  async findAll(query: GetUsersDto): Promise<PaginatedResponse<User>> {
+    const { page = 1, size = 10, search } = query;
 
+    const { take, skip } = createPaginationMetadata(page, size);
 
-async findAll(query: GetUsersDto): Promise<PaginatedResponse<User>> {
-  const { page = 1, size = 10, search } = query; 
-
-  const { take, skip } = createPaginationMetadata(page, size);
-
-  const prismaQuery: Prisma.UserFindManyArgs = {
-    take,
-    skip,
-    include: {
-      role: true,
-      department: true,
-    },
-    where: {},
-  };
-
-  if (search) {
-    prismaQuery.where.OR = [
-      {
-        name: {
-          contains: search,
-          mode: 'insensitive', // Búsqueda insensible a mayúsculas/minúsculas
-        },
+    const prismaQuery: Prisma.UserFindManyArgs = {
+      take,
+      skip,
+      include: {
+        role: true,
+        department: true,
       },
-      {
-        email: {
-          contains: search,
-          mode: 'insensitive', // Búsqueda insensible a mayúsculas/minúsculas
+      where: {},
+    };
+
+    if (search) {
+      prismaQuery.where.OR = [
+        {
+          name: {
+            contains: search,
+            mode: 'insensitive', // Búsqueda insensible a mayúsculas/minúsculas
+          },
         },
-      },
-    ];
+        {
+          email: {
+            contains: search,
+            mode: 'insensitive', // Búsqueda insensible a mayúsculas/minúsculas
+          },
+        },
+      ];
+    }
+
+    const [users, total] = await Promise.all([
+      this.prismaService.user.findMany(prismaQuery),
+      this.prismaService.user.count({ where: prismaQuery.where }),
+    ]);
+
+    return createPaginatedResponse<User>(users, total, page, size);
   }
-
-  const [users, total] = await Promise.all([
-    this.prismaService.user.findMany(prismaQuery),
-    this.prismaService.user.count({ where: prismaQuery.where }),
-  ]);
-
-  return createPaginatedResponse<User>(users, total, page, size);
-}
 
   private async exists(email: string): Promise<boolean> {
     try {

@@ -6,6 +6,7 @@ import { UpdateMailingListDto } from './dto/update-mailing-list.dto';
 import { PaginatedResponse } from '../utils/pagination.util';
 import { MailingList } from '@prisma/client';
 import { ApiTags } from '@nestjs/swagger';
+import { PaginationParamsPipe } from '../pipes/pagination-params.pipe';
 
 @ApiTags('Mailing List')
 @Controller('mailing-list')
@@ -19,8 +20,9 @@ export class MailingListController {
 
   @Get()
   async findAll(
-    @Query() query: GetMailingListDto,
+    @Query(new PaginationParamsPipe()) query: GetMailingListDto,
   ): Promise<PaginatedResponse<MailingList>> {
+    console.log('◉ ▶ MailingListController ▶ query:', query);
     return this.mailingListService.findAll(query);
   }
 

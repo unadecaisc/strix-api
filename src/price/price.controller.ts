@@ -1,5 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { PriceService  } from './price.service';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
+import { PriceService } from './price.service';
 import { CreatePriceDto } from './dto/create-price.dto';
 import { UpdatePriceDto } from './dto/update-price.dto';
 
@@ -19,12 +27,10 @@ export class PriceController {
       throw new Error('Price not found');
     }
     return price;
-    
   }
 
   @Post()
   async create(@Body() createPriceDto: CreatePriceDto) {
     return this.priceService.create(createPriceDto);
   }
-
 }

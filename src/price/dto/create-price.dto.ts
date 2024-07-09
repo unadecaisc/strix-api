@@ -1,4 +1,4 @@
 export class CreatePriceDto {
-    active: boolean;
-    price: number;
+  active: boolean;
+  price: number;
 }
