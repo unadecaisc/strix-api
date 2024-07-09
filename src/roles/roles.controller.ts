@@ -6,6 +6,7 @@ import { Role } from '@prisma/client';
 import { PaginatedResponse } from '../utils/pagination.util';
 import { CreateRoleDto } from './dto/create-role.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { PaginationParamsPipe } from '../pipes/pagination-params.pipe';
 
 @ApiTags('Roles')
 @Controller('roles')
@@ -18,7 +19,9 @@ export class RolesController {
   }
 
   @Get()
-  async findAll(@Query() query: GetRoleDto): Promise<PaginatedResponse<Role>> {
+  async findAll(
+    @Query(new PaginationParamsPipe()) query: GetRoleDto,
+  ): Promise<PaginatedResponse<Role>> {
     return this.rolesService.findAll(query);
   }
 

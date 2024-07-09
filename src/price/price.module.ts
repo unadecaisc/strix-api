@@ -3,13 +3,9 @@ import { PriceService } from './price.service';
 import { PriceController } from './price.controller';
 import { CommonModule } from '../common/common.module';
 
-
-
 @Module({
-  imports: [ CommonModule],
+  imports: [CommonModule],
   controllers: [PriceController],
   providers: [PriceService],
-
-  
 })
 export class PriceModule {}
