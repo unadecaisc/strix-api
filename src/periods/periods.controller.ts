@@ -6,6 +6,7 @@ import { GetPeriodDto } from './dto/get-period.dto';
 import { Period } from '@prisma/client';
 import { PaginatedResponse } from '../utils/pagination.util';
 import { ApiTags } from '@nestjs/swagger';
+import { filter } from 'rxjs';
 
 @ApiTags('Periods')
 @Controller('periods')
@@ -13,11 +14,17 @@ export class PeriodsController {
   constructor(private readonly periodsService: PeriodsService) {}
 
   @Get()
-  async findAll(
-    @Query() query: GetPeriodDto,
-  ): Promise<PaginatedResponse<Period>> {
+  async findAll(@Query() query: GetPeriodDto,): Promise<PaginatedResponse<Period>> {
     return this.periodsService.findAll(query);
   }
+  @Get('search')
+  async search(@Query('search') name?: string): Promise<Period[]> {
+    const query: GetPeriodDto = {
+      filter: name ? { name: { contains: name } } : undefined,
+    };
+    return this.periodsService.search(query);
+  }
+
 
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<Period> {

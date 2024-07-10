@@ -28,6 +28,19 @@ export class PeriodsService {
     }
   }
 
+  async search(query: GetPeriodDto): Promise<Period[]> {
+    const { filter } = query;
+    console.log('Filter:', filter); 
+    const results = await this.prismaService.period.findMany({
+      where: filter,
+    });
+    console.log('Results:', results); 
+    return results;
+  }
+  
+  
+  
+
   async findAll(query: GetPeriodDto): Promise<PaginatedResponse<Period>> {
     const { page = 1, size = 10 } = query;
     const { take, skip } = createPaginationMetadata(page, size);
