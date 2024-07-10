@@ -1,9 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
-export class CreateRoleDto {
+
+export class CreateMailingListDto {
   @ApiProperty()
   name: string;
   @ApiProperty()
-  allowedPermissions: string[];
+  email: string;
   @ApiProperty()
-  id: number;
+  active: boolean;
 }
