@@ -16,11 +16,11 @@ export class DepartamentsService {
 
   async createDepartamet(data: CreateDepartamentDto): Promise<Department> {
     try {
-      return this.prismaService.departament.create({
+      return this.prismaService.department.create({
         data: {
           name: data.name,
           code: data.code,
-          pricing: data.pricing,
+          pricingId: data.pricing,
         },
       });
     } catch (error) {
@@ -39,14 +39,14 @@ export class DepartamentsService {
       include: {},
     };
     const [departament, total] = await Promise.all([
-      this.prismaService.departament.findMany(prismaQuery),
-      this.prismaService.departament.count(),
+      this.prismaService.department.findMany(prismaQuery),
+      this.prismaService.department.count(),
     ]);
     return createPaginatedResponse<Department>(departament, total, page, size);
   }
 
   findOne(id: number) {
-    return this.prismaService.departament.findFirst({
+    return this.prismaService.department.findFirst({
       where: {
         id,
       },
@@ -57,19 +57,15 @@ export class DepartamentsService {
     id: number,
     data: UpdateDepartamentDto,
   ): Promise<Department> {
-    return this.prismaService.departament.update({
+    return this.prismaService.department.update({
       where: {
         id,
       },
       data: {
         name: data.name,
         code: data.code,
-        pricing: data.pricing,
+        pricingId: data.pricing,
       },
     });
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} departament`;
   }
 }
