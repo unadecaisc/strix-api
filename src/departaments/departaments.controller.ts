@@ -6,6 +6,7 @@ import { GetDepartamentDto } from './dto/get-departament.dto';
 import { Department } from '@prisma/client';
 import { PaginatedResponse } from '../utils/pagination.util';
 import { ApiTags } from '@nestjs/swagger';
+import { PaginationParamsPipe } from '../pipes/pagination-params.pipe';
 
 @ApiTags('Departments')
 @Controller('departments')
@@ -14,7 +15,7 @@ export class DepartamentsController {
 
   @Get()
   async findAll(
-    @Query() query: GetDepartamentDto,
+    @Query(new PaginationParamsPipe()) query: GetDepartamentDto,
   ): Promise<PaginatedResponse<Department>> {
     return this.departamentsService.findAll(query);
   }
