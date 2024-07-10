@@ -18,13 +18,15 @@ export class PeriodsController {
     return this.periodsService.findAll(query);
   }
   @Get('search')
-  async search(@Query('search') name?: string): Promise<Period[]> {
-    const query: GetPeriodDto = {
-      filter: name ? { name: { contains: name } } : undefined,
+  async search(@Query('search') search?: string): Promise<Period[]> {
+    const query: CreatePeriodDto = {
+      search,
+      name: '',
+      start: undefined,
+      end: undefined
     };
     return this.periodsService.search(query);
   }
-
 
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<Period> {

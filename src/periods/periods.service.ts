@@ -28,13 +28,12 @@ export class PeriodsService {
     }
   }
 
-  async search(query: GetPeriodDto): Promise<Period[]> {
-    const { filter } = query;
-    console.log('Filter:', filter); 
+  async search(query: CreatePeriodDto): Promise<Period[]> {
+    const { search } = query;
+    const filter = search ? { name: { contains: search } } : {};
     const results = await this.prismaService.period.findMany({
       where: filter,
     });
-    console.log('Results:', results); 
     return results;
   }
   
