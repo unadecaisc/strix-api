@@ -20,7 +20,9 @@ export class DepartamentsService {
         data: {
           name: data.name,
           code: data.code,
-          pricingId: data.pricing,
+          pricing: {
+            connect: { id: data.pricingId },
+          },
         },
       });
     } catch (error) {
@@ -64,7 +66,9 @@ export class DepartamentsService {
       data: {
         name: data.name,
         code: data.code,
-        pricingId: data.pricing,
+        pricing: {
+          connect: { id: data.pricingId },
+        },
       },
     });
   }
