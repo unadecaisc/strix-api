@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import {
   Controller,
   Get,
@@ -8,6 +9,10 @@ import {
   Delete,
 } from '@nestjs/common';
 import { PriceService } from './price.service';
+=======
+import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { PriceService  } from './price.service';
+>>>>>>> a2e45db6ba0503d324b42864f798e828c41bc9d0
 import { CreatePriceDto } from './dto/create-price.dto';
 import { UpdatePriceDto } from './dto/update-price.dto';
 
@@ -27,10 +32,18 @@ export class PriceController {
       throw new Error('Price not found');
     }
     return price;
+<<<<<<< HEAD
+=======
+    
+>>>>>>> a2e45db6ba0503d324b42864f798e828c41bc9d0
   }
 
   @Post()
   async create(@Body() createPriceDto: CreatePriceDto) {
     return this.priceService.create(createPriceDto);
   }
+<<<<<<< HEAD
+=======
+
+>>>>>>> a2e45db6ba0503d324b42864f798e828c41bc9d0
 }

@@ -7,5 +7,7 @@ export function getCredentialsFromEnv() {
 
     const obj = JSON.parse(base);
     return obj;
+
+    
   }
 }
