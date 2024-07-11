@@ -1,10 +1,8 @@
-
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { PriceService  } from './price.service';
-
+import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import { PriceService } from './price.service';
 import { CreatePriceDto } from './dto/create-price.dto';
-
-
+import { ApiTags } from '@nestjs/swagger';
+@ApiTags('Pricing')
 @Controller('price')
 export class PriceController {
   constructor(private readonly priceService: PriceService) {}

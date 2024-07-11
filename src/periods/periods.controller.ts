@@ -12,8 +12,6 @@ export class PeriodsController {
   constructor(private readonly periodsService: PeriodsService) {}
 
   @Get()
-  
-
   async findAll(@Query() query: CreatePeriodDto): Promise<PaginatedResponse<Period>> {
     return this.periodsService.findAll(query);
   }

@@ -8,7 +8,7 @@ import { PaginatedResponse } from '../utils/pagination.util';
 import { GetUsersDto } from './dto/get-users.dto';
 import { PaginationParamsPipe } from '../pipes/pagination-params.pipe';
 
-@ApiTags('users')
+@ApiTags('Users')
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
