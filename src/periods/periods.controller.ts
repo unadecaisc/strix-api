@@ -15,6 +15,7 @@ export class PeriodsController {
   async findAll(@Query() query: CreatePeriodDto): Promise<PaginatedResponse<Period>> {
     return this.periodsService.findAll(query);
   }
+  
 
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<Period> {
