@@ -9,11 +9,6 @@ import { DepartamentsModule } from './departaments/departaments.module';
 import { MailingListModule } from './mailing-list/mailing-list.module';
 import { GlobalConfigsModule } from './global-configs/global-configs.module';
 import { PriceModule } from './price/price.module';
-<<<<<<< HEAD
-=======
-
->>>>>>> a2e45db6ba0503d324b42864f798e828c41bc9d0
-
 @Module({
   imports: [
     CommonModule,
