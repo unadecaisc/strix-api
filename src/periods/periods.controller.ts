@@ -5,6 +5,7 @@ import { UpdatePeriodDto } from './dto/update-period.dto';
 import { Period } from '@prisma/client';
 import { PaginatedResponse } from '../utils/pagination.util';
 import { ApiTags } from '@nestjs/swagger';
+import { GetPeriodDto } from './dto/get-period.dto';
 
 @ApiTags('Periods')
 @Controller('periods')
@@ -12,7 +13,7 @@ export class PeriodsController {
   constructor(private readonly periodsService: PeriodsService) {}
 
   @Get()
-  async findAll(@Query() query: CreatePeriodDto): Promise<PaginatedResponse<Period>> {
+  async findAll(@Query() query: GetPeriodDto): Promise<PaginatedResponse<Period>> {
     return this.periodsService.findAll(query);
   }
   

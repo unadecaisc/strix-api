@@ -1,35 +1,13 @@
-import { IsOptional, IsString, IsDateString, IsNumber } from 'class-validator';
-import { PaginationQueryDto } from '../../utils/pagination.util';
-import { ApiPropertyOptional } from '@nestjs/swagger';
-
-export class CreatePeriodDto extends PaginationQueryDto {
-  @ApiPropertyOptional()
-  @IsOptional()
-  @IsNumber()
-  page?: number;
-
-  @ApiPropertyOptional()
-  @IsOptional()
-  @IsNumber()
-  size?: number;
-
-  @ApiPropertyOptional()
-  @IsOptional()
+import { ApiProperty } from '@nestjs/swagger';
+import { IsDate, IsString } from 'class-validator';
+export class CreatePeriodDto {
+  @ApiProperty()
   @IsString()
-  search?: string;
-
-  @ApiPropertyOptional()
-  @IsOptional()
-  @IsString()
-  name?: string;
-
-  @ApiPropertyOptional()
-  @IsOptional()
-  @IsDateString()
-  start?: Date;
-
-  @ApiPropertyOptional()
-  @IsOptional()
-  @IsDateString()
-  end?: Date;
+  name: string;
+  @ApiProperty()
+  @IsDate()
+  start: Date;
+  @ApiProperty()
+  @IsDate()
+  end: Date;
 }

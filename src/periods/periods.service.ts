@@ -8,6 +8,7 @@ import {
   createPaginatedResponse,
   createPaginationMetadata,
 } from '../utils/pagination.util';
+import { GetPeriodDto } from './dto/get-period.dto';
 
 @Injectable()
 export class PeriodsService {
@@ -27,7 +28,7 @@ export class PeriodsService {
     }
   }
 
-  async findAll(query: CreatePeriodDto): Promise<PaginatedResponse<Period>> {
+  async findAll(query: GetPeriodDto): Promise<PaginatedResponse<Period>> {
     const { page = 1, size = 10, search } = query;
     const { take, skip } = createPaginationMetadata(page, size);
     const prismaQuery = {
