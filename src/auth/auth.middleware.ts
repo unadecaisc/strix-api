@@ -5,6 +5,7 @@ import {
 } from '@nestjs/common';
 import { FastifyReply, FastifyRequest } from 'fastify';
 import * as admin from 'firebase-admin';
+import { Roles } from '../roles/decorators/role.decorator';
 
 export type AuthenticatedRequest = FastifyRequest['raw'] & {
   firebaseUser: admin.auth.DecodedIdToken;
@@ -29,6 +30,10 @@ export class AuthMiddleware implements NestMiddleware {
 
       const decoded = await admin.auth().verifyIdToken(token);
       req['fireabseUser'] = decoded;
+      // req['user'] = {
+      //   Roles: {
+      //   }
+      // }
 
       next();
     } catch (error) {

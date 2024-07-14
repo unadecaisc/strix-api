@@ -8,6 +8,7 @@ import { PeriodsModule } from './periods/periods.module';
 import { MailingListModule } from './mailing-list/mailing-list.module';
 import { GlobalConfigsModule } from './global-configs/global-configs.module';
 
+
 @Module({
   imports: [
     CommonModule,
