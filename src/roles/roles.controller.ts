@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Param, Query, Put, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Query,
+  Put,
+  UseGuards,
+} from '@nestjs/common';
 import { RolesService } from './roles.service';
 import { UpdateRoleDto } from './dto/update-role.dto';
 import { GetRoleDto } from './dto/get-role.dto';
@@ -10,6 +19,7 @@ import { Roles } from './decorators/role.decorator';
 import { Auth } from 'firebase-admin/lib/auth/auth';
 import { BeldGuard } from '../beld/beld.guard';
 import { AuthMiddleware } from '../auth/auth.middleware';
+import { PaginationParamsPipe } from '../pipes/pagination-params.pipe';
 
 @ApiTags('Roles')
 @Controller('roles')
@@ -24,7 +34,9 @@ export class RolesController {
   }
 
   @Get()
-  async findAll(@Query() query: GetRoleDto): Promise<PaginatedResponse<Role>> {
+  async findAll(
+    @Query(new PaginationParamsPipe()) query: GetRoleDto,
+  ): Promise<PaginatedResponse<Role>> {
     return this.rolesService.findAll(query);
   }
 

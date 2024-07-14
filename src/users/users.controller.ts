@@ -6,14 +6,17 @@ import { ApiTags } from '@nestjs/swagger';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PaginatedResponse } from '../utils/pagination.util';
 import { GetUsersDto } from './dto/get-users.dto';
+import { PaginationParamsPipe } from '../pipes/pagination-params.pipe';
 
-@ApiTags('users')
+@ApiTags('Users')
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get()
-  async findAll(@Query() query: GetUsersDto): Promise<PaginatedResponse<User>> {
+  async findAll(
+    @Query(new PaginationParamsPipe()) query: GetUsersDto,
+  ): Promise<PaginatedResponse<User>> {
     return this.usersService.findAll(query);
   }
 

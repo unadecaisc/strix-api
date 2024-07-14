@@ -1,15 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsString } from 'class-validator';
+import { IsNumber, IsString } from 'class-validator';
 
-export class CreateMailingListDto {
+export class CreateDepartamentDto {
   @ApiProperty()
   @IsString()
   name: string;
-
   @ApiProperty()
   @IsString()
-  email: string;
+  code: string;
   @ApiProperty()
-  @IsBoolean()
-  active: boolean;
+  @IsNumber()
+  pricingId: number;
 }

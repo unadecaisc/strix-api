@@ -1,12 +1,12 @@
 import { Module, ValidationPipe } from '@nestjs/common';
-import { GlobalConfigsService } from './global-configs.service';
-import { GlobalConfigsController } from './global-configs.controller';
-import { CommonModule } from '../common/common.module';
+import { DepartamentsService } from './departaments.service';
+import { DepartamentsController } from './departaments.controller';
+import { CommonModule } from 'src/common/common.module';
 import { APP_PIPE } from '@nestjs/core';
 
 @Module({
   imports: [CommonModule],
-  controllers: [GlobalConfigsController],
+  controllers: [DepartamentsController],
   providers: [
     {
       provide: APP_PIPE,
@@ -16,7 +16,7 @@ import { APP_PIPE } from '@nestjs/core';
         forbidNonWhitelisted: true,
       }),
     },
-    GlobalConfigsService,
+    DepartamentsService,
   ],
 })
-export class GlobalConfigsModule {}
+export class DepartamentsModule {}

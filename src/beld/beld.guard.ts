@@ -1,14 +1,16 @@
-
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import {Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class BeldGuard implements CanActivate {
-constructor(private readonly _reflector: Reflector) {}
+  constructor(private readonly _reflector: Reflector) {}
 
-  canActivate(context: ExecutionContext,): boolean {
-    const roles: string[] = this._reflector.get<string[]>('roles', context.getHandler());
+  canActivate(context: ExecutionContext): boolean {
+    const roles: string[] = this._reflector.get<string[]>(
+      'roles',
+      context.getHandler(),
+    );
 
     if (!roles) {
       return true;
@@ -16,7 +18,8 @@ constructor(private readonly _reflector: Reflector) {}
     const request = context.switchToHttp().getRequest();
     const user = request.user;
 
-    const hasRole = () => user.roles.some((role: string) => roles.includes(role));
+    const hasRole = () =>
+      user.roles.some((role: string) => roles.includes(role));
 
     return user && user.roles && hasRole();
   }
