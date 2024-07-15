@@ -1,13 +1,4 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Param,
-  Query,
-  Put,
-  UseGuards,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Query, Put } from '@nestjs/common';
 import { RolesService } from './roles.service';
 import { UpdateRoleDto } from './dto/update-role.dto';
 import { GetRoleDto } from './dto/get-role.dto';
@@ -15,10 +6,7 @@ import { Role } from '@prisma/client';
 import { PaginatedResponse } from '../utils/pagination.util';
 import { CreateRoleDto } from './dto/create-role.dto';
 import { ApiTags } from '@nestjs/swagger';
-import { Roles } from './decorators/role.decorator';
-import { Auth } from 'firebase-admin/lib/auth/auth';
-import { BeldGuard } from '../beld/beld.guard';
-import { AuthMiddleware } from '../auth/auth.middleware';
+import { Roles } from '../guards/role.guard';
 import { PaginationParamsPipe } from '../pipes/pagination-params.pipe';
 
 @ApiTags('Roles')
@@ -27,12 +15,11 @@ export class RolesController {
   constructor(private readonly rolesService: RolesService) {}
 
   @Post()
-  @UseGuards(BeldGuard, AuthMiddleware)
-  @Roles('admin')
   async create(@Body() body: CreateRoleDto): Promise<Role> {
     return this.rolesService.createRole(body);
   }
 
+  @Roles('USER')
   @Get()
   async findAll(
     @Query(new PaginationParamsPipe()) query: GetRoleDto,
