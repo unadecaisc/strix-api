@@ -18,5 +18,6 @@ import { APP_PIPE } from '@nestjs/core';
     },
     RolesService,
   ],
+  exports: [RolesService],
 })
 export class RolesModule {}
