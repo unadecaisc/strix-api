@@ -31,7 +31,6 @@ export class MailingListController {
   async findAll(
     @Query(new PaginationParamsPipe()) query: GetMailingListDto,
   ): Promise<PaginatedResponse<MailingList>> {
-    console.log('◉ ▶ MailingListController ▶ query:', query);
     return this.mailingListService.findAll(query);
   }
 

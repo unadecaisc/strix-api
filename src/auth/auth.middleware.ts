@@ -5,9 +5,10 @@ import {
 } from '@nestjs/common';
 import { FastifyReply, FastifyRequest } from 'fastify';
 import * as admin from 'firebase-admin';
+import { FirebaseUserClaims } from '../common/fireabase.service';
 
 export type AuthenticatedRequest = FastifyRequest['raw'] & {
-  firebaseUser: admin.auth.DecodedIdToken;
+  firebaseUser: admin.auth.DecodedIdToken & FirebaseUserClaims;
 };
 
 @Injectable()
@@ -27,8 +28,7 @@ export class AuthMiddleware implements NestMiddleware {
     try {
       const token = this.getTokenFromHeader(req);
 
-      const decoded = await admin.auth().verifyIdToken(token);
-      req['fireabseUser'] = decoded;
+      req['firebaseUser'] = await admin.auth().verifyIdToken(token);
 
       next();
     } catch (error) {

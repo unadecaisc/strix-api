@@ -1,4 +1,5 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
+import { IsOptional } from 'class-validator';
 
 export type PaginatedResponse<T> = {
   data: T[];
@@ -11,9 +12,11 @@ export type PaginatedResponse<T> = {
 
 export class PaginationQueryDto {
   @ApiPropertyOptional()
+  @IsOptional()
   page?: number;
 
   @ApiPropertyOptional()
+  @IsOptional()
   size?: number;
 }
 

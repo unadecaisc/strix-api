@@ -1,8 +1,10 @@
 // global-configs.controller.ts
 import { Controller, Get, Put, Body } from '@nestjs/common';
 import { GlobalConfigsService } from './global-configs.service';
-import { UpdateConfigsDto } from './dto/dto/update-configs.dto';
+import { UpdateConfigsDto } from './dto/update-configs.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Global Configs')
 @Controller('global-configs')
 export class GlobalConfigsController {
   constructor(private readonly globalConfigsService: GlobalConfigsService) {}

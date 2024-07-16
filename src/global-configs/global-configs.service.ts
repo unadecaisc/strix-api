@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 // import { UpdateConfigsDto } from './dto/dto/update-configs.dto';
 import { PrismaService } from '../common/prisma.service';
-import { UpdateConfigsDto } from './dto/dto/update-configs.dto';
+import { UpdateConfigsDto } from './dto/update-configs.dto';
 import { Prisma } from '@prisma/client';
 
 @Injectable()
