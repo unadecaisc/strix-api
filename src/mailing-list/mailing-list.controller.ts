@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Param, Put, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Put,
+  Query,
+  Delete,
+} from '@nestjs/common';
 import { MailingListService } from './mailing-list.service';
 import { GetMailingListDto } from './dto/get-mailing-list.dto';
 import { CreateMailingListDto } from './dto/create-mailing-list.dto';
@@ -40,5 +49,9 @@ export class MailingListController {
       Number(id),
       updateMailingListDto,
     );
+  }
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.mailingListService.remove(Number(id));
   }
 }

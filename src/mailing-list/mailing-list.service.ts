@@ -1,4 +1,8 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateMailingListDto } from './dto/create-mailing-list.dto';
 import { GetMailingListDto } from './dto/get-mailing-list.dto';
 import { UpdateMailingListDto } from './dto/update-mailing-list.dto';
@@ -66,5 +70,24 @@ export class MailingListService {
         active: data.active,
       },
     });
+  }
+  async remove(id: number): Promise<void> {
+    try {
+      const mailingList = await this.prismaService.mailingList.findUnique({
+        where: { id },
+      });
+
+      if (!mailingList) {
+        throw new NotFoundException(`Mailing list with ID ${id} not found`);
+      }
+
+      await this.prismaService.mailingList.delete({
+        where: { id },
+      });
+    } catch (error) {
+      throw new InternalServerErrorException(
+        'Could not delete the mailing list',
+      );
+    }
   }
 }
