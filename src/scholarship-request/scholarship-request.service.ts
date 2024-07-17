@@ -19,9 +19,17 @@ export class ScholarshipRequestService {
     try {
       return this.prismaService.studentOnDepartment.create({
         data: {
-          status: data.status,
-          department: { connect: { id: data.departmentId } },
-          student: { connect: { id: data.studentId } },
+          department: {
+            connect: {
+              id: data.departmentId,
+            },
+          },
+          student: {
+            connect: {
+              id: data.studentId,
+            },
+          },
+          status: 'PENDING',
         },
       });
     } catch (error) {
