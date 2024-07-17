@@ -12,16 +12,16 @@ import {
 
 @Injectable()
 export class ScholarshipRequestService {
-  constructor(
-    private readonly prismaService: PrismaService  )
-   {}
-  async createScholarshipRequest(data: CreateScholarshipRequestDto): Promise<StudentOnDepartment> {
+  constructor(private readonly prismaService: PrismaService) {}
+  async createScholarshipRequest(
+    data: CreateScholarshipRequestDto,
+  ): Promise<StudentOnDepartment> {
     try {
       return this.prismaService.studentOnDepartment.create({
         data: {
           status: data.status,
-          department: {connect: {id: data.departmentId}},
-          student: {connect: {id: data.studentId}},
+          department: { connect: { id: data.departmentId } },
+          student: { connect: { id: data.studentId } },
         },
       });
     } catch (error) {
@@ -29,38 +29,47 @@ export class ScholarshipRequestService {
     }
   }
 
-    async findAll(query: GetScholarshipRequestDto): Promise<PaginatedResponse<StudentOnDepartment>> {
-      const { page = 1, size = 10 } = query;
-      const { take, skip } = createPaginationMetadata(page, size);
-      const prismaQuery = {
-        take,
-        skip,
-        include: {
-          department: true,
-          student: true,
-        },
-      };
-      const [studentOnDepartment, total] = await Promise.all([
-        this.prismaService.studentOnDepartment.findMany(prismaQuery),
-        this.prismaService.studentOnDepartment.count(),
-      ]);
-      return createPaginatedResponse<StudentOnDepartment>(studentOnDepartment, total, page, size);
-    }
-  
+  async findAll(
+    query: GetScholarshipRequestDto,
+  ): Promise<PaginatedResponse<StudentOnDepartment>> {
+    const { page = 1, size = 10 } = query;
+    const { take, skip } = createPaginationMetadata(page, size);
+    const prismaQuery = {
+      take,
+      skip,
+      include: {
+        department: true,
+        student: true,
+      },
+    };
+    const [studentOnDepartment, total] = await Promise.all([
+      this.prismaService.studentOnDepartment.findMany(prismaQuery),
+      this.prismaService.studentOnDepartment.count(),
+    ]);
+    return createPaginatedResponse<StudentOnDepartment>(
+      studentOnDepartment,
+      total,
+      page,
+      size,
+    );
+  }
 
-    findOne(id: number) {
-      return this.prismaService.studentOnDepartment.findFirst({
-        where: {
-          id,
-        },
-        include: {
-          department: true,
-          student: true,
-        }
-      });
-    }
+  findOne(id: number) {
+    return this.prismaService.studentOnDepartment.findFirst({
+      where: {
+        id,
+      },
+      include: {
+        department: true,
+        student: true,
+      },
+    });
+  }
 
-  update(id: number, data: UpdateScholarshipRequestDto): Promise<StudentOnDepartment> {
+  update(
+    id: number,
+    data: UpdateScholarshipRequestDto,
+  ): Promise<StudentOnDepartment> {
     return this.prismaService.studentOnDepartment.update({
       where: {
         id,
