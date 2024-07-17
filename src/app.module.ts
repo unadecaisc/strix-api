@@ -17,6 +17,7 @@ import { PriceModule } from './price/price.module';
 import { StudentsModule } from './students/students.module';
 import { AuthMiddleware } from './auth/auth.middleware';
 import { PermissionsModule } from './permissions/permissions.module';
+import { ScholarshipRequestModule } from './scholarship-request/scholarship-request.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { PermissionsModule } from './permissions/permissions.module';
     PriceModule,
     StudentsModule,
     PermissionsModule,
+    ScholarshipRequestModule,
   ],
   controllers: [AppController],
   providers: [AppService],
