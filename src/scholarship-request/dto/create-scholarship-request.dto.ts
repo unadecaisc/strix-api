@@ -4,10 +4,10 @@ import { IsNumber } from 'class-validator';
 export class CreateScholarshipRequestDto {
   @ApiProperty()
   @IsNumber()
-  departmentId: number;
+  departmentId?: number;
   @ApiProperty()
   @IsNumber()
-  studentId: number;
+  studentId?: number;
   @ApiProperty()
   status: RequestStatus;
 }
