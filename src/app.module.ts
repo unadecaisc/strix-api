@@ -18,7 +18,6 @@ import { StudentsModule } from './students/students.module';
 import { AuthMiddleware } from './auth/auth.middleware';
 import { PermissionsModule } from './permissions/permissions.module';
 
-
 @Module({
   imports: [
     CommonModule,
@@ -43,6 +42,10 @@ export class AppModule implements NestModule {
         {
           path: '/users',
           method: RequestMethod.POST,
+        },
+        {
+          path: '/health',
+          method: RequestMethod.GET,
         },
         {
           path: '/doc',
