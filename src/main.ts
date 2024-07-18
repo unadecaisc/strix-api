@@ -9,15 +9,26 @@ import {
 import { getCredentialsFromEnv } from './utils';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
+import fastifyCors, { FastifyCorsOptions } from '@fastify/cors';
 
 config();
 
 async function bootstrap() {
+  const adapter = new FastifyAdapter();
+
+  const corsOptios: FastifyCorsOptions = {
+    origin: true,
+    methods: '*',
+    preflightContinue: false,
+    optionsSuccessStatus: 200,
+    credentials: true,
+    allowedHeaders: ['Authorization'],
+  };
+  await adapter.register(fastifyCors as any, corsOptios);
+
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
-    new FastifyAdapter({
-      logger: true,
-    }),
+    adapter,
   );
   const config = new DocumentBuilder()
     .setTitle('Strix API')
@@ -33,12 +44,6 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe());
 
-  app.enableCors({
-    origin: '*',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    allowedHeaders: '*',
-    credentials: true,
-  });
   await app.listen(process.env.PORT || 8000, '0.0.0.0');
 }
 bootstrap();
