@@ -81,10 +81,10 @@ export class ScholarshipRequestService {
     return this.prismaService.studentOnDepartment.update({
       where: {
         id,
-      },
+      },  
       data: {
         status: data.status,
-      },
+        },
     });
   }
 }
