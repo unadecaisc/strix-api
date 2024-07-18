@@ -12,10 +12,6 @@ import { ValidationPipe } from '@nestjs/common';
 
 config();
 
-function getWhiteList(): string[] {
-  return process.env.CORS_WHITELIST?.split(',').map((item) => item.trim());
-}
-
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
@@ -36,12 +32,13 @@ async function bootstrap() {
   });
 
   app.useGlobalPipes(new ValidationPipe());
-  const whiteList = getWhiteList();
 
   app.enableCors({
-    origin: whiteList,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS', 'HEAD'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    allowedHeaders: '*',
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
     credentials: true,
   });
 

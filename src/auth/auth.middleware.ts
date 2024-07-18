@@ -14,6 +14,10 @@ export type AuthenticatedRequest = FastifyRequest['raw'] & {
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
   private getTokenFromHeader(req: FastifyRequest['raw']) {
+    console.log(
+      '◉ ▶ AuthMiddleware ▶ getTokenFromHeader ▶ req.headers:',
+      req.headers.authorization,
+    );
     if (!req.headers.authorization) {
       throw new UnauthorizedException('No authorization header provided');
     }
