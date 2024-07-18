@@ -40,14 +40,41 @@ export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(AuthMiddleware)
-      .exclude({
-        path: '/users',
-        method: RequestMethod.POST,
-      })
-      .exclude({
-        path: '/doc',
-        method: RequestMethod.GET,
-      })
+
+      .exclude(
+        {
+          path: '/users',
+          method: RequestMethod.POST,
+        },
+        {
+          path: '/health',
+          method: RequestMethod.GET,
+        },
+        {
+          path: '/doc',
+          method: RequestMethod.ALL,
+        },
+        {
+          path: '/doc/swagger-ui.css',
+          method: RequestMethod.GET,
+        },
+        {
+          path: '/doc/swagger-ui-bundle.js',
+          method: RequestMethod.GET,
+        },
+        {
+          path: '/doc/swagger-ui-standalone-preset.js',
+          method: RequestMethod.GET,
+        },
+        {
+          path: '/doc/swagger-ui-init.js',
+          method: RequestMethod.GET,
+        },
+        {
+          path: '/doc/favicon-32x32.png',
+          method: RequestMethod.GET,
+        },
+      )
       .forRoutes('*');
   }
 }
