@@ -6,6 +6,7 @@ import { Role } from '@prisma/client';
 import { PaginatedResponse } from '../utils/pagination.util';
 import { CreateRoleDto } from './dto/create-role.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { Roles } from '../guards/role.guard';
 import { PaginationParamsPipe } from '../pipes/pagination-params.pipe';
 
 @ApiTags('Roles')
@@ -18,6 +19,7 @@ export class RolesController {
     return this.rolesService.createRole(body);
   }
 
+  @Roles('USER')
   @Get()
   async findAll(
     @Query(new PaginationParamsPipe()) query: GetRoleDto,

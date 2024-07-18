@@ -5,6 +5,7 @@ export class CreateMailingListDto {
   @ApiProperty()
   @IsString()
   name: string;
+
   @ApiProperty()
   @IsString()
   email: string;

@@ -7,7 +7,6 @@ import { Student } from '@prisma/client';
 import { PaginatedResponse } from '../utils/pagination.util';
 import { ApiTags } from '@nestjs/swagger';
 
-
 @ApiTags('Students')
 @Controller('students')
 export class StudentsController {
@@ -31,3 +30,4 @@ export class StudentsController {
     return this.studentsService.updatestudent(Number(id), body);
   }
 }
+

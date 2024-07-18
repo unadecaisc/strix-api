@@ -38,11 +38,11 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   const whiteList = getWhiteList();
 
-  console.log('◉ ▶ bootstrap ▶ whiteList:', whiteList);
   app.enableCors({
     origin: whiteList,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS', 'HEAD'],
-    allowedHeaders: 'Content-Type, Accept',
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
   });
 
   await app.listen(process.env.PORT || 8000, '0.0.0.0');

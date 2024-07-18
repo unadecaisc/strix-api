@@ -11,6 +11,7 @@ import {
   PaginatedResponse,
 } from '../utils/pagination.util';
 import { GetUsersDto } from './dto/get-users.dto';
+import { RolesService } from '../roles/roles.service';
 
 const DEFAULT_ROLE = 2;
 
@@ -19,6 +20,7 @@ export class UsersService {
   constructor(
     private readonly prismaService: PrismaService,
     private readonly firebaseService: FirebaseService,
+    private readonly rolesService: RolesService,
   ) {}
 
   createUserInput(
@@ -61,10 +63,18 @@ export class UsersService {
     if (await this.exists(createUserDto.email)) {
       throw new BadRequestException('User already exists');
     }
+    const role = await this.rolesService.findOne(
+      createUserDto.roleId ?? DEFAULT_ROLE,
+    );
 
     const firebaseUser = await this.firebaseService.createUser({
       email: createUserDto.email,
       password: createUserDto.password,
+    });
+
+    await this.firebaseService.addCustomClaims(firebaseUser.uid, {
+      allowedPermissions: role.allowedPermissions,
+      roleId: role.id,
     });
 
     const user = await this.prismaService.user.create({

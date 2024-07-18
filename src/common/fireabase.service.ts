@@ -6,6 +6,11 @@ export type FirebaseUser = {
   password: string;
 };
 
+export type FirebaseUserClaims = {
+  allowedPermissions: string[];
+  roleId: number;
+};
+
 @Injectable()
 export class FirebaseService {
   validateToken(token: string) {
@@ -14,6 +19,10 @@ export class FirebaseService {
 
   createUser(user: FirebaseUser) {
     return admin.auth().createUser(user);
+  }
+
+  addCustomClaims(uuid: string, claims: FirebaseUserClaims) {
+    return admin.auth().setCustomUserClaims(uuid, claims);
   }
 
   getUser(uid: string) {
