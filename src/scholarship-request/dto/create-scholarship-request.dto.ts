@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { RequestStatus } from '@prisma/client';
-import { IsNumber } from 'class-validator';
+import { IsEnum, isEnum, IsNumber } from 'class-validator';
 export class CreateScholarshipRequestDto {
   @ApiProperty()
   @IsNumber()
@@ -9,5 +9,7 @@ export class CreateScholarshipRequestDto {
   @IsNumber()
   studentId?: number;
   @ApiProperty()
+  
+  @IsEnum(RequestStatus)
   status: RequestStatus;
 }
