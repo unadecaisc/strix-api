@@ -4,7 +4,6 @@ import { PeriodsController } from './periods.controller';
 import { CommonModule } from '../common/common.module';
 import { APP_PIPE } from '@nestjs/core';
 
-
 @Module({
   imports: [CommonModule],
   controllers: [PeriodsController],

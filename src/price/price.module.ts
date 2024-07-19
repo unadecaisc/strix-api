@@ -4,7 +4,6 @@ import { PriceController } from './price.controller';
 import { CommonModule } from '../common/common.module';
 import { APP_PIPE } from '@nestjs/core';
 
-
 @Module({
   imports: [CommonModule],
   controllers: [PriceController],
@@ -20,5 +19,4 @@ import { APP_PIPE } from '@nestjs/core';
     PriceService,
   ],
 })
-
 export class PriceModule {}

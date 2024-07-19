@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsEmail} from 'class-validator';
+import { IsString, IsEmail } from 'class-validator';
 export class CreateStudentDto {
   @ApiProperty()
   @IsString()
@@ -12,7 +12,7 @@ export class CreateStudentDto {
   @ApiProperty()
   @IsString()
   phone: string;
-  
+
   @ApiProperty()
   @IsString()
   code: string;

@@ -39,11 +39,12 @@ export class PeriodsService {
     };
     const [periods, total] = await Promise.all([
       this.prismaService.period.findMany(prismaQuery),
-      this.prismaService.period.count({ where: search ? { name: { contains: search } } : {} }),
+      this.prismaService.period.count({
+        where: search ? { name: { contains: search } } : {},
+      }),
     ]);
     return createPaginatedResponse<Period>(periods, total, page, size);
   }
-
 
   findOne(id: number) {
     return this.prismaService.period.findFirst({

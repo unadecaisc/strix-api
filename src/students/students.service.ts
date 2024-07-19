@@ -35,17 +35,21 @@ export class StudentsService {
     const prismaQuery = {
       take,
       skip,
-      where: search ? {
-        OR: [
-          { name: { contains: search } },
-          { email: { contains: search } },
-          { code: { contains: search } },
-        ],
-      } : {},
+      where: search
+        ? {
+            OR: [
+              { name: { contains: search } },
+              { email: { contains: search } },
+              { code: { contains: search } },
+            ],
+          }
+        : {},
     };
     const [student, total] = await Promise.all([
       this.prismasService.student.findMany(prismaQuery),
-      this.prismasService.student.count({ where: search ? { name: { contains: search } } : {} }),
+      this.prismasService.student.count({
+        where: search ? { name: { contains: search } } : {},
+      }),
     ]);
     return createPaginatedResponse<Student>(student, total, page, size);
   }
@@ -72,4 +76,3 @@ export class StudentsService {
     });
   }
 }
-

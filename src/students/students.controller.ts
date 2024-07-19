@@ -6,6 +6,7 @@ import { GetStudentsDto } from './dto/get-students.dto';
 import { Student } from '@prisma/client';
 import { PaginatedResponse } from '../utils/pagination.util';
 import { ApiTags } from '@nestjs/swagger';
+import { PaginationParamsPipe } from '../pipes/pagination-params.pipe';
 
 @ApiTags('Students')
 @Controller('students')
@@ -13,7 +14,9 @@ export class StudentsController {
   constructor(private readonly studentsService: StudentsService) {}
 
   @Get()
-  async findAll(@Query() query: GetStudentsDto): Promise<PaginatedResponse<Student>> {
+  async findAll(
+    @Query(new PaginationParamsPipe()) query: GetStudentsDto,
+  ): Promise<PaginatedResponse<Student>> {
     return this.studentsService.findAll(query);
   }
 
@@ -30,4 +33,3 @@ export class StudentsController {
     return this.studentsService.updatestudent(Number(id), body);
   }
 }
-
