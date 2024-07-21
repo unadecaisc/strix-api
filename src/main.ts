@@ -34,8 +34,10 @@ async function bootstrap() {
     .setTitle('Strix API')
     .setDescription('Api for Strix application')
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
+
   SwaggerModule.setup('doc', app, document);
 
   firebaseAdmin.initializeApp({
