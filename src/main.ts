@@ -17,12 +17,12 @@ async function bootstrap() {
   const adapter = new FastifyAdapter();
 
   const corsOptios: FastifyCorsOptions = {
-    origin: true,
-    methods: '*',
+    origin: process.env.CORS_ORIGIN ?? true,
+    methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH', 'OPTIONS'],
     preflightContinue: false,
     optionsSuccessStatus: 200,
     credentials: true,
-    allowedHeaders: ['Authorization'],
+    allowedHeaders: ['Authorization', 'Content-Type'],
   };
   await adapter.register(fastifyCors as any, corsOptios);
 
