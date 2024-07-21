@@ -13,10 +13,10 @@ import { PeriodsModule } from './periods/periods.module';
 import { DepartamentsModule } from './departaments/departaments.module';
 import { MailingListModule } from './mailing-list/mailing-list.module';
 import { GlobalConfigsModule } from './global-configs/global-configs.module';
-import { PriceModule } from './price/price.module';
 import { StudentsModule } from './students/students.module';
 import { AuthMiddleware } from './auth/auth.middleware';
 import { PermissionsModule } from './permissions/permissions.module';
+import { ScholarshipRequestModule } from './scholarship-request/scholarship-request.module';
 
 @Module({
   imports: [
@@ -27,9 +27,9 @@ import { PermissionsModule } from './permissions/permissions.module';
     DepartamentsModule,
     GlobalConfigsModule,
     MailingListModule,
-    PriceModule,
     StudentsModule,
     PermissionsModule,
+    ScholarshipRequestModule,
   ],
   controllers: [AppController],
   providers: [AppService],
@@ -38,6 +38,7 @@ export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(AuthMiddleware)
+
       .exclude(
         {
           path: '/users',

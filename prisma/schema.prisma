@@ -74,23 +74,15 @@ model Role {
   users              User[]
 }
 
-model Pricing {
-  id          Int          @id @default(autoincrement())
-  price       Float
-  active      Boolean      @default(true)
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-  departments Department[]
-}
+
 
 model Department {
   id           Int                   @id @default(autoincrement())
   name         String
   code         String
-  pricingId    Int
   createdAt    DateTime              @default(now())
   updatedAt    DateTime              @updatedAt
-  pricing      Pricing               @relation(fields: [pricingId], references: [id])
+  pricing      Float
   users        User[]
   students     StudentOnDepartment[]
   hours        WorkHours[]
