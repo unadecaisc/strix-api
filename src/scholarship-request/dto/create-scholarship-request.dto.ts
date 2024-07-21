@@ -9,7 +9,6 @@ export class CreateScholarshipRequestDto {
   @IsNumber()
   studentId?: number;
   @ApiProperty()
-  
   @IsEnum(RequestStatus)
   status: RequestStatus;
 }

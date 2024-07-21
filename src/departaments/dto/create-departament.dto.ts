@@ -10,5 +10,5 @@ export class CreateDepartamentDto {
   code: string;
   @ApiProperty()
   @IsNumber()
-  pricingId: number;
+  pricing: number;
 }

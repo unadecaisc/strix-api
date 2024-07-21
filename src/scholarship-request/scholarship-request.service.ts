@@ -1,4 +1,8 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { CreateScholarshipRequestDto } from './dto/create-scholarship-request.dto';
 import { UpdateScholarshipRequestDto } from './dto/update-scholarship-request.dto';
 import { GetScholarshipRequestDto } from './dto/get-scholarship-request.dto';
@@ -16,25 +20,38 @@ export class ScholarshipRequestService {
   async createScholarshipRequest(
     data: CreateScholarshipRequestDto,
   ): Promise<StudentOnDepartment> {
-    try {
-      return this.prismaService.studentOnDepartment.create({
-        data: {
-          status: data.status,
-          department: {
-            connect: {
-              id: data.departmentId,
-            },
-          },
-          student: {
-            connect: {
-              id: data.studentId,
-            },
+    const departament = await this.prismaService.department.findUnique({
+      where: {
+        id: data.departmentId,
+      },
+    });
+    if (!departament) {
+      throw new BadRequestException('Department not found');
+    }
+    const student = await this.prismaService.student.findUnique({
+      where: {
+        id: data.studentId,
+      },
+    });
+    if (!student) {
+      throw new BadRequestException('Student not found');
+    }
+
+    return this.prismaService.studentOnDepartment.create({
+      data: {
+        status: data.status,
+        department: {
+          connect: {
+            id: data.departmentId,
           },
         },
-      });
-    } catch (error) {
-      throw new InternalServerErrorException('Could not be created');
-    }
+        student: {
+          connect: {
+            id: data.studentId,
+          },
+        },
+      },
+    });
   }
 
   async findAll(
@@ -81,10 +98,10 @@ export class ScholarshipRequestService {
     return this.prismaService.studentOnDepartment.update({
       where: {
         id,
-      },  
+      },
       data: {
         status: data.status,
-        },
+      },
     });
   }
 }
