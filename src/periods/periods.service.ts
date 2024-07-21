@@ -2,13 +2,13 @@ import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { CreatePeriodDto } from './dto/create-period.dto';
 import { UpdatePeriodDto } from './dto/update-period.dto';
 import { Period } from '@prisma/client';
-import { GetPeriodDto } from './dto/get-period.dto';
 import { PrismaService } from '../common/prisma.service';
 import {
   PaginatedResponse,
   createPaginatedResponse,
   createPaginationMetadata,
 } from '../utils/pagination.util';
+import { GetPeriodDto } from './dto/get-period.dto';
 
 @Injectable()
 export class PeriodsService {
@@ -29,18 +29,21 @@ export class PeriodsService {
   }
 
   async findAll(query: GetPeriodDto): Promise<PaginatedResponse<Period>> {
-    const { page = 1, size = 10 } = query;
+    const { page = 1, size = 10, search } = query;
     const { take, skip } = createPaginationMetadata(page, size);
     const prismaQuery = {
       take,
       skip,
+      where: search ? { name: { contains: search } } : {},
       include: {},
     };
-    const [period, total] = await Promise.all([
+    const [periods, total] = await Promise.all([
       this.prismaService.period.findMany(prismaQuery),
-      this.prismaService.period.count(),
+      this.prismaService.period.count({
+        where: search ? { name: { contains: search } } : {},
+      }),
     ]);
-    return createPaginatedResponse<Period>(period, total, page, size);
+    return createPaginatedResponse<Period>(periods, total, page, size);
   }
 
   findOne(id: number) {

@@ -30,15 +30,26 @@ export class StudentsService {
   }
 
   async findAll(query: GetStudentsDto): Promise<PaginatedResponse<Student>> {
-    const { page = 1, size = 10 } = query;
+    const { page = 1, size = 10, search } = query;
     const { take, skip } = createPaginationMetadata(page, size);
     const prismaQuery = {
       take,
       skip,
+      where: search
+        ? {
+            OR: [
+              { name: { contains: search } },
+              { email: { contains: search } },
+              { code: { contains: search } },
+            ],
+          }
+        : {},
     };
     const [student, total] = await Promise.all([
       this.prismasService.student.findMany(prismaQuery),
-      this.prismasService.student.count(),
+      this.prismasService.student.count({
+        where: search ? { name: { contains: search } } : {},
+      }),
     ]);
     return createPaginatedResponse<Student>(student, total, page, size);
   }

@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { CreatePriceDto } from './dto/create-price.dto';
 import { Pricing } from '@prisma/client';
 import { PrismaService } from '../common/prisma.service';
-
 @Injectable()
 export class PriceService {
   constructor(private readonly prismaService: PrismaService) {}
