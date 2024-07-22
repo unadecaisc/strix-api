@@ -6,7 +6,7 @@ export class PaginationParamsPipe implements PipeTransform {
     if (value.page) {
       value.page = parseInt(value.page);
     }
-    if (value.limit) {
+    if (value.size) {
       value.size = parseInt(value.size);
     }
     return value;

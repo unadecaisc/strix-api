@@ -32,11 +32,11 @@ export class RolesGuard implements CanActivate {
 
     const firebaseUser = request.raw.firebaseUser;
 
-    const test = roles.some((role) =>
+    const userPermissions = roles.some((role) =>
       firebaseUser.allowedPermissions.includes(role),
     );
 
-    return test;
+    return firebaseUser.allowedPermissions.includes('ADMIN') ?? userPermissions;
   }
 }
 
