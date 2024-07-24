@@ -5,10 +5,11 @@ import { UpdateDepartamentDto } from './dto/update-departament.dto';
 import { GetDepartamentDto } from './dto/get-departament.dto';
 import { Department } from '@prisma/client';
 import { PaginatedResponse } from '../utils/pagination.util';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { PaginationParamsPipe } from '../pipes/pagination-params.pipe';
 
 @ApiTags('Departments')
+@ApiBearerAuth()
 @Controller('departments')
 export class DepartamentsController {
   constructor(private readonly departamentsService: DepartamentsService) {}

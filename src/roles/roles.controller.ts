@@ -5,11 +5,12 @@ import { GetRoleDto } from './dto/get-role.dto';
 import { Role } from '@prisma/client';
 import { PaginatedResponse } from '../utils/pagination.util';
 import { CreateRoleDto } from './dto/create-role.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth,ApiTags } from '@nestjs/swagger';
 import { Roles } from '../guards/role.guard';
 import { PaginationParamsPipe } from '../pipes/pagination-params.pipe';
 
 @ApiTags('Roles')
+@ApiBearerAuth()
 @Controller('roles')
 export class RolesController {
   constructor(private readonly rolesService: RolesService) {}

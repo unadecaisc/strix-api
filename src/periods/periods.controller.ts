@@ -4,11 +4,12 @@ import { CreatePeriodDto } from './dto/create-period.dto';
 import { UpdatePeriodDto } from './dto/update-period.dto';
 import { Period } from '@prisma/client';
 import { PaginatedResponse } from '../utils/pagination.util';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { PaginationParamsPipe } from '../pipes/pagination-params.pipe';
 import { GetPeriodDto } from './dto/get-period.dto';
 
 @ApiTags('Periods')
+@ApiBearerAuth()
 @Controller('periods')
 export class PeriodsController {
   constructor(private readonly periodsService: PeriodsService) {}

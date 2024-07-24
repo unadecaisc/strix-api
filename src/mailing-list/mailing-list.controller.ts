@@ -14,10 +14,11 @@ import { CreateMailingListDto } from './dto/create-mailing-list.dto';
 import { UpdateMailingListDto } from './dto/update-mailing-list.dto';
 import { PaginatedResponse } from '../utils/pagination.util';
 import { MailingList } from '@prisma/client';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth,ApiTags } from '@nestjs/swagger';
 import { PaginationParamsPipe } from '../pipes/pagination-params.pipe';
 
 @ApiTags('Mailing List')
+@ApiBearerAuth( )
 @Controller('mailing-list')
 export class MailingListController {
   constructor(private readonly mailingListService: MailingListService) {}
