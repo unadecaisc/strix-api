@@ -2,12 +2,13 @@ import { Controller, Get, Post, Body, Param, Query, Put } from '@nestjs/common';
 import { ScholarshipRequestService } from './scholarship-request.service';
 import { CreateScholarshipRequestDto } from './dto/create-scholarship-request.dto';
 import { UpdateScholarshipRequestDto } from './dto/update-scholarship-request.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { GetScholarshipRequestDto } from './dto/get-scholarship-request.dto';
 import { PaginationParamsPipe } from '../pipes/pagination-params.pipe';
 import { PaginatedResponse } from '../utils/pagination.util';
 import { StudentOnDepartment } from '@prisma/client';
 @ApiTags('ScholarshipRequest')
+@ApiBearerAuth()
 @Controller('scholarship-request')
 export class ScholarshipRequestController {
   constructor(
