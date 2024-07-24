@@ -6,7 +6,7 @@ export class CreateRoleDto {
   name: string;
   @ApiProperty()
   @IsArray({
-    each: true,
+    each: false,
   })
   allowedPermissions: string[];
 }
