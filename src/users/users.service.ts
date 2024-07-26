@@ -58,31 +58,36 @@ export class UsersService {
     };
     return input;
   }
-
-  async create(createUserDto: CreateUserDto) {
-    if (await this.exists(createUserDto.email)) {
-      throw new BadRequestException('User already exists');
-    }
-    const role = await this.rolesService.findOne(
-      createUserDto.roleId ?? DEFAULT_ROLE,
-    );
-
-    const firebaseUser = await this.firebaseService.createUser({
-      email: createUserDto.email,
-      password: createUserDto.password,
-    });
-
-    await this.firebaseService.addCustomClaims(firebaseUser.uid, {
-      allowedPermissions: role.allowedPermissions,
-      roleId: role.id,
-    });
-
-    const user = await this.prismaService.user.create({
-      data: this.createUserInput(createUserDto, firebaseUser),
-    });
-
-    return user;
+// crear susuario
+async create(createUserDto: CreateUserDto) {
+  if (await this.exists(createUserDto.email)) {
+    throw new BadRequestException('User already exists');
   }
+  
+  const roleId = createUserDto.roleId ?? DEFAULT_ROLE;
+  const role = await this.rolesService.findOne(roleId);
+
+  if (!role) {
+    throw new BadRequestException(`Role with id ${roleId} does not exist`);
+  }
+
+  const firebaseUser = await this.firebaseService.createUser({
+    email: createUserDto.email,
+    password: createUserDto.password,
+  });
+
+  await this.firebaseService.addCustomClaims(firebaseUser.uid, {
+    allowedPermissions: role.allowedPermissions,
+    roleId: role.id,
+  });
+
+  const user = await this.prismaService.user.create({
+    data: this.createUserInput(createUserDto, firebaseUser),
+  });
+
+  return user;
+}
+  // fin 
 
   async findAll(query: GetUsersDto): Promise<PaginatedResponse<User>> {
     const { page = 1, size = 10, search } = query;
@@ -163,6 +168,7 @@ export class UsersService {
     const user = await this.prismaService.user.update({
       where: { uuid },
       data: this.createUpdateUserInput(updateUserDto),
+
     });
 
     return user;
