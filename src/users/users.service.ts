@@ -58,36 +58,36 @@ export class UsersService {
     };
     return input;
   }
-// crear susuario
-async create(createUserDto: CreateUserDto) {
-  if (await this.exists(createUserDto.email)) {
-    throw new BadRequestException('User already exists');
+  // crear susuario
+  async create(createUserDto: CreateUserDto) {
+    if (await this.exists(createUserDto.email)) {
+      throw new BadRequestException('User already exists');
+    }
+
+    const roleId = createUserDto.roleId ?? DEFAULT_ROLE;
+    const role = await this.rolesService.findOne(roleId);
+
+    if (!role) {
+      throw new BadRequestException(`Role with id ${roleId} does not exist`);
+    }
+
+    const firebaseUser = await this.firebaseService.createUser({
+      email: createUserDto.email,
+      password: createUserDto.password,
+    });
+
+    await this.firebaseService.addCustomClaims(firebaseUser.uid, {
+      allowedPermissions: role.allowedPermissions,
+      roleId: role.id,
+    });
+
+    const user = await this.prismaService.user.create({
+      data: this.createUserInput(createUserDto, firebaseUser),
+    });
+
+    return user;
   }
-  
-  const roleId = createUserDto.roleId ?? DEFAULT_ROLE;
-  const role = await this.rolesService.findOne(roleId);
-
-  if (!role) {
-    throw new BadRequestException(`Role with id ${roleId} does not exist`);
-  }
-
-  const firebaseUser = await this.firebaseService.createUser({
-    email: createUserDto.email,
-    password: createUserDto.password,
-  });
-
-  await this.firebaseService.addCustomClaims(firebaseUser.uid, {
-    allowedPermissions: role.allowedPermissions,
-    roleId: role.id,
-  });
-
-  const user = await this.prismaService.user.create({
-    data: this.createUserInput(createUserDto, firebaseUser),
-  });
-
-  return user;
-}
-  // fin 
+  // fin
 
   async findAll(query: GetUsersDto): Promise<PaginatedResponse<User>> {
     const { page = 1, size = 10, search } = query;
@@ -168,7 +168,6 @@ async create(createUserDto: CreateUserDto) {
     const user = await this.prismaService.user.update({
       where: { uuid },
       data: this.createUpdateUserInput(updateUserDto),
-
     });
 
     return user;
