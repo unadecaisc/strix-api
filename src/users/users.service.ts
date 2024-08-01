@@ -153,7 +153,7 @@ export class UsersService {
     // return `This action updates a #${id} user`;
     //update firebase
 
-    if (updateUserDto || updateUserDto.password) {
+    if (updateUserDto.email || updateUserDto.password) {
       this.firebaseService.updateUser(uuid, {
         password: updateUserDto.password,
         email: updateUserDto.email,

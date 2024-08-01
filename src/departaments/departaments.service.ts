@@ -36,7 +36,9 @@ export class DepartamentsService {
     const prismaQuery = {
       take,
       skip,
-      include: {},
+      include: {
+        users: true,
+      },
     };
     const [departament, total] = await Promise.all([
       this.prismaService.department.findMany(prismaQuery),

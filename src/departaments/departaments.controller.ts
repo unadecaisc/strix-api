@@ -27,6 +27,7 @@ export class DepartamentsController {
 
   @Post()
   async create(@Body() body: CreateDepartamentDto): Promise<Department> {
+    console.log('◉ ▶ DepartamentsController ▶ create ▶ body:', body);
     return this.departamentsService.createDepartamet(body);
   }
 
