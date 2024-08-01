@@ -1,8 +1,9 @@
 import { Controller, Get } from '@nestjs/common';
 import * as Permissions from './permissions';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Permissions')
+@ApiBearerAuth()
 @Controller('permissions')
 export class PermissionsController {
   @Get()
